@@ -1,9 +1,13 @@
-const express = require('express');
+import express from 'express';
+import { readFileSync } from 'fs';
 
 const app = new express();
 
-app.get('/', (_req, res) => {
-	res.send(`<h1>React is excellent</h1>`);
+app.use(express.static('dist'));
+
+app.get('/', async (_req, res) => {
+	const index = readFileSync(`public/index.html`, 'utf8');
+	res.send(index);
 });
 
 app.listen(7777);
